@@ -1,20 +1,18 @@
 import os 
-import json
 import sys
+import json
 
+from dotenv import load_dotenv
 import pymongo.mongo_client
-''' we are loading mongodb url from .env fdile this keeps passworfs and URL hidden and secure'''
-
-
-from dotenv import load_dotenv 
-from pymongo.mongo_client import MongoClient
+'''The fundamental way to read credentials from this file is to use the function load_dotenv . 
+It doesn't return any data but rather loads all variables to the environment 
+and we can store them into Python variables with os the library'''
 
 load_dotenv()
 
+mongo_url = os.getenv("MONGO_DB_URL")
+print(mongo_url) 
 
-MONGO_DB_URL= os.getenv("MONGO_DB_URL")
-
-print(MONGO_DB_URL)
 
 import certifi
 ''' certifi provides trusted SSL certificate'''
@@ -26,6 +24,7 @@ ca = certifi.where()
 '''certified.where : the ca variable is certificate othoritis which are trusted which is ussuallty done for ssl certificates'''
 
 
+    
 import pandas as pd
 import numpy as np
 import pymongo
@@ -89,11 +88,12 @@ Extracts just the values (the dictionaries):
             self.collection = collection
             self.records = records
             
-            self.mongo_client = MongoClient(MONGO_DB_URL)
+            #self.mongo_client = pymongo.mongo_client(mongo_url)
+            self.mongo_client = pymongo.MongoClient(mongo_url, tlsCAFile=ca)
             self.database = self.mongo_client[self.database]
             self.collection = self.database[self.collection]
             self.collection.insert_many(self.records)
-            return (len(self.records))
+            return len(self.records)
         except Exception as e:
             raise NetworkSecutityException(e,sys)
         
@@ -106,7 +106,5 @@ if __name__ == '__main__':
         print(records)
         no_of_records = networkobj.insert_data_mongoDB(records,DATABASE, collection)
         print(no_of_records)
-
-    
 
     
