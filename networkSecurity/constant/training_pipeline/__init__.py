@@ -7,6 +7,17 @@ import pandas as pd
 '''Data ingestion related constant start with DATA_INGESTION VAR NAME'''
 
 
+
+TARGET_COLUMN = "Result"
+PIPELINE_NAME : str = "NetworkSecurity"
+ARTIFACT_DIR : str = "Artifacts"
+FILE_NAME : str = "phishing_080020_120.csv"
+
+TRAINING_FILE_NAME : str = "train.csv"
+TEST_FILE_NAME : str= "test.csv"
+
+'''data ingestion releted constant start with Data_INGESTION var NAME'''
+
 DATA_INGESTION_COLLECTION_NAME : str= "NetworkData"
 DATA_INGESTION_DATABASE_NAME : str = "KDacadamy"
 DATA_INGESTION_DIR_NAME : str = "data_ingestion"
