@@ -4,6 +4,6 @@ from dataclasses import dataclass
 
 class DataIngestionArtifact:
     train_file_path:str
-    test_file_patj:str
+    test_file_path:str
 
     
